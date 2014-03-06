@@ -17,6 +17,7 @@
 
 
 #include "stm32f10x.h"
+#include "stm3210c_eval.h"
 
 /* External function prototypes (defined in syscalls.c) */
 extern int printf(const char *fmt, ...);
