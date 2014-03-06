@@ -1,0 +1,30 @@
+# connect to the J-Link gdb server
+target extended-remote localhost:2331
+
+# Set JTAG speed to 30 kHz
+monitor speed 30
+
+# Set gdb server to little endian
+monitor endian little
+
+# Reset the target
+monitor reset
+monitor sleep 100
+
+# Set JTAG speed in khz
+monitor speed auto
+
+# Setup GDB FOR FASTER DOWNLOADS
+set remote memory-write-packet-size 1024
+set remote memory-write-packet-size fixed
+
+
+# Enable flash download and flash breakpoints.
+# Flash download and flash breakpoints are features of
+# the J-Link software which require separate licenses 
+# from SEGGER.
+# Enable FlashDL and FlashBPs
+monitor flash download = 1
+
+# Select flash device
+monitor flash device = STM32F105RB
