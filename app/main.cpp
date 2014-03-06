@@ -1,8 +1,8 @@
 /*
  * main.cpp
  *
- *  Created on: 2013-6-3
- *      Author: Hz
+ *  Created on: 2014-3-6
+ *      Author: kiya
  */
 
 #include "bsp.h"
