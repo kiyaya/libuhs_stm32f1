@@ -12,7 +12,10 @@ void BSP_init(void) {
 	can be done here if it was not done before main() was called. */
 
 	GPIO_Configuration();
-
+	comm_init();
+#ifdef USE_SDCARD
+	rtc_init();
+#endif
 }
 
 

@@ -15,10 +15,15 @@
 #include <stdbool.h>
 #include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
 
-
 #include "stm32f10x.h"
 #include "stm3210c_eval.h"
+#include "comm.h"
 
+#ifdef USE_SDCARD
+#include "rtc.h"
+#include "ff_test_term.h"
+//#include "misc_test_term.h"
+#endif
 /* External function prototypes (defined in syscalls.c) */
 extern int printf(const char *fmt, ...);
 
