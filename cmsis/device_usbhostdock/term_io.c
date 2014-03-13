@@ -1,6 +1,6 @@
 #include <stdarg.h>
 #include "term_io.h"
-
+#include "bsp.h"
 int xatoi (char **str, long *res)
 {
 	DWORD val;
@@ -58,8 +58,13 @@ int xatoi (char **str, long *res)
 
 void xputc (char c)
 {
-	if (c == '\n') comm_put('\r');
-	comm_put(c);
+	if (c == '\n') {
+		__uart_putchar('\r');
+		SWO_PrintChar('\r');
+	}
+	__uart_putchar(c);
+	SWO_PrintChar(c);
+
 }
 
 
@@ -183,6 +188,9 @@ void put_dump (const BYTE *buff, DWORD ofs, int cnt)
 	xputc('\n');
 }
 
+
+
+
 void get_line (char *buff, int len)
 {
 	char c;
@@ -191,6 +199,7 @@ void get_line (char *buff, int len)
 	for (;;) {
 		c = xgetc();
 		if (c == '\r') break;
+		if (c == '\n') break;
 		if ((c == '\b') && idx) {
 			idx--; xputc(c);
 			xputc(' '); xputc(c); // added by mthomas for Eclipse Terminal plug-in

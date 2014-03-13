@@ -2,11 +2,11 @@
 #define TERM_IO_H_
 
 #include "integer.h"
-//#include "comm.h"
+
 #include "swo_printf.h"
 
-#define xgetc() (char)comm_get()
-#define xavail() comm_test()
+#define xgetc() (char)GetKey()
+#define xavail() (char)GetKey()	//comm_test()
 
 int xatoi (char**, long*);
 void xputc (char);

@@ -12,12 +12,46 @@ void BSP_init(void) {
 	can be done here if it was not done before main() was called. */
 
 	GPIO_Configuration();
-	comm_init();
+
+	USART_InitTypeDef USART_InitStructure;
+
+	USART_InitStructure.USART_BaudRate = 115200;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+
+	STM_EVAL_COMInit(COM1, &USART_InitStructure);
+
 #ifdef USE_SDCARD
 	rtc_init();
 #endif
 }
 
+extern "C" int __uart_putchar(int ch) {
+	/* Place your implementation of fputc here */
+	/* e.g. write a character to the USART */
+	USART_SendData(EVAL_COM1, (uint8_t) ch);
+
+	/* Loop until the end of transmission */
+	while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET)
+	{}
+
+	return ch;
+}
+
+uint8_t GetKey(void)
+{
+	uint8_t RetVal;
+
+	RetVal = 0;
+	if (EVAL_COM1->SR & USART_FLAG_RXNE) {
+		RetVal = 0xFF & USART_ReceiveData(EVAL_COM1);
+	}
+
+	return(RetVal);
+}
 
 static uint32_t tick_time = 0;
 uint32_t millis(void) {
@@ -40,6 +74,22 @@ extern "C" {
 
 void SysTick_Handler(void) {
 	tick_time++;
+
+	static uint16_t cnt=0;
+	static uint8_t flip=0, cntdiskio=0;
+
+	if( cnt++ >= 500 ) {
+		cnt = 0;
+		STM_EVAL_LEDToggle(LED1);
+	}
+
+	if ( cntdiskio++ >= 10 ) {
+		cntdiskio = 0;
+		disk_timerproc(); /* to be called every 10ms */
+	}
+
+	ff_test_term_timerproc();
+
 }
 
 void Default_Handler_c(unsigned int * hardfault_args) {

@@ -230,19 +230,21 @@ void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
   GPIO_InitTypeDef GPIO_InitStructure;
 
   /* Enable GPIO clock */
-  RCC_APB2PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM] | RCC_APB2Periph_AFIO, ENABLE);
+  //RCC_APB2PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM] | RCC_APB2Periph_AFIO, ENABLE);
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
 
-  if (COM == COM1)
-  {
-    /* Enable the USART2 Pins Software Remapping */
-    GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
-    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
-  }
+//  if (COM == COM1)
+//  {
+//    /* Enable the USART2 Pins Software Remapping */
+//    GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
+//    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
+//  }
 
   /* Configure USART Tx as alternate function push-pull */
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
   GPIO_InitStructure.GPIO_Pin = COM_TX_PIN[COM];
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;		// GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_Init(COM_TX_PORT[COM], &GPIO_InitStructure);
 
   /* Configure USART Rx as input floating */

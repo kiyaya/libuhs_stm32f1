@@ -39,7 +39,7 @@ int main(void)
 		Usb.Task(&USB_OTG_Core_dev);
 #endif
 
-#if 1	// @huihuiyao, un-mask if flash led.
+#if 0	// @huihuiyao, un-mask if flash led.
 		LED1_ON;	delay_ms(500);
 		LED2_ON;	delay_ms(500);
 		LED3_ON;	delay_ms(500);

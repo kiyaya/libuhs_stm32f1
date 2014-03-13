@@ -109,7 +109,7 @@ int _write(int file, char *ptr, int len)
 	for (i=0; i<len; i++)
 	{
 		ch = *(ptr++);
-		xputc(ch);
+		__uart_putchar(ch);
 		SWO_PrintChar(ch);
 
 	}

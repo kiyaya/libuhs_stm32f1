@@ -17,15 +17,17 @@
 
 #include "stm32f10x.h"
 #include "stm3210c_eval.h"
-#include "comm.h"
 
 #ifdef USE_SDCARD
 #include "rtc.h"
 #include "ff_test_term.h"
 //#include "misc_test_term.h"
+#include "diskio.h"
 #endif
 /* External function prototypes (defined in syscalls.c) */
 extern int printf(const char *fmt, ...);
+int __uart_putchar(int ch);
+uint8_t GetKey(void);
 
 /* --- Function declaration --- */
 void BSP_init(void);
