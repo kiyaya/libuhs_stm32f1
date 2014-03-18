@@ -6,6 +6,7 @@
  */
 
 #include "bsp.h"
+#include "ff_test_term.h"
 
 #ifdef USE_UHS20
 #include "Usb.h"

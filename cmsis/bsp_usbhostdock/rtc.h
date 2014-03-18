@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <stm32f10x.h>
 typedef struct {
 	uint16_t year;	/* 1..4095 */
 	uint8_t  month;	/* 1..12 */

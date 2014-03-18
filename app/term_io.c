@@ -1,6 +1,8 @@
 #include <stdarg.h>
-#include "term_io.h"
+
 #include "bsp.h"
+#include "term_io.h"
+
 int xatoi (char **str, long *res)
 {
 	DWORD val;
@@ -187,9 +189,6 @@ void put_dump (const BYTE *buff, DWORD ofs, int cnt)
 	}
 	xputc('\n');
 }
-
-
-
 
 void get_line (char *buff, int len)
 {

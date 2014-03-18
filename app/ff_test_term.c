@@ -7,10 +7,10 @@
 #include "integer.h"
 #include "diskio.h"
 #include "ff.h"
-#include "term_io.h"
-#include "rtc.h"
-#include "ff_test_term.h"
 
+#include "bsp.h"
+#include "ff_test_term.h"
+#include "term_io.h"
 
 DWORD acc_size;				/* Work register for fs command */
 WORD acc_files, acc_dirs;

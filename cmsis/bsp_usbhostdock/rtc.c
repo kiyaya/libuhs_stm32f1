@@ -4,10 +4,8 @@
 /*  partly based on code from STMircoelectronics, Peter Dannegger, "LaLaDumm" */
 /*--------------------------------------------------------------------------  */
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "stm32f10x.h"
 #include "rtc.h"
+#include "stm32f10x_rtc.h"
 
 #define FIRSTYEAR   2000		// start year
 #define FIRSTDAY    6			// 0 = Sunday

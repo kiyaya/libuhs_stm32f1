@@ -16,6 +16,9 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+#include "comm.h"
+#include "swo_printf.h"
+
 #undef errno
 extern int errno;
 
