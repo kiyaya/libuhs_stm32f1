@@ -40,8 +40,8 @@ void comm_put(char);
 void comm_puts(const char*);
 char comm_getc(void);
 
-int __uart_putchar(int ch);
-uint8_t GetKey(void);
+void __uart_putchar(int ch);
+//uint8_t GetKey(void);
 
 #endif
 

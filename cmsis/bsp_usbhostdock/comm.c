@@ -141,7 +141,8 @@ static void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruc
 }
 
 
-int __uart_putchar(int ch) {
+void __uart_putchar(int ch) {
+#if 0
 	/* Place your implementation of fputc here */
 	/* e.g. write a character to the USART */
 	USART_SendData(EVAL_COM1, (uint8_t) ch);
@@ -150,7 +151,10 @@ int __uart_putchar(int ch) {
 	while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET)
 	{}
 
-	return ch;
+#else
+	while(USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET) { ; }
+	USART_SendData(EVAL_COM1, (uint16_t)ch);
+#endif
 }
 
 uint8_t GetKey(void)

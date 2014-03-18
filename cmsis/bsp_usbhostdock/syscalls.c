@@ -113,7 +113,7 @@ int _write(int file, char *ptr, int len)
 	{
 		ch = *(ptr++);
 		__uart_putchar(ch);
-		SWO_PrintChar(ch);
+		//SWO_PrintChar(ch);
 
 	}
 	return len;
