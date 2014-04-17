@@ -120,7 +120,13 @@ LoopFillZerobss:
     .section	.text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
-	b	Infinite_Loop
+//	b	Infinite_Loop
+	TST LR, #4
+  	ITE EQ
+  	MRSEQ R0, MSP
+  	MRSNE R0, PSP
+  	b Default_Handler_c
+
 	.size	Default_Handler, .-Default_Handler
 
 /******************************************************************************

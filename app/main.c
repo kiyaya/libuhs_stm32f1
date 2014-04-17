@@ -15,6 +15,32 @@
 USB_OTG_CORE_HANDLE USB_OTG_Core_dev;
 USB Usb(&USB_OTG_Core_dev);
 USBHub Hub(&Usb);
+#else
+#include "usb_bsp.h"
+#include "usbh_core.h"
+#include "usbh_usr.h"
+#include "usbh_hid_core.h"
+
+/** @defgroup USBH_USR_MAIN_Private_Variables
+* @{
+*/
+#ifdef USB_OTG_HS_INTERNAL_DMA_ENABLED
+  #if defined ( __ICCARM__ ) /*!< IAR Compiler */
+    #pragma data_alignment=4
+  #endif
+#endif /* USB_OTG_HS_INTERNAL_DMA_ENABLED */
+__ALIGN_BEGIN USB_OTG_CORE_HANDLE           USB_OTG_Core_dev __ALIGN_END ;
+
+#ifdef USB_OTG_HS_INTERNAL_DMA_ENABLED
+  #if defined ( __ICCARM__ ) /*!< IAR Compiler */
+    #pragma data_alignment=4
+  #endif
+#endif /* USB_OTG_HS_INTERNAL_DMA_ENABLED */
+__ALIGN_BEGIN USBH_HOST                     USB_Host __ALIGN_END ;
+/**
+* @}
+*/
+
 #endif
 
 void setup(void) {
@@ -24,13 +50,28 @@ void setup(void) {
 #ifdef USE_UHS20
 	if (Usb.Init() != -1)
 		printf("\nUsb is initialized.\n");
+#else
+	USBH_Init(&USB_OTG_Core_dev,
+#ifdef USE_USB_OTG_FS
+			USB_OTG_FS_CORE_ID,
+#else
+			USB_OTG_HS_CORE_ID,
+#endif
+			&USB_Host,
+			&HID_cb,
+			&USR_Callbacks);
+
 #endif
 }
 
 int main(void)
 {
 #ifdef USE_SDCARD
-	typedef enum { APPSTATE_FF_TERM, APPSTATE_TESTMENU } AppState;
+	typedef enum {
+		APPSTATE_FF_TERM,
+		APPSTATE_TESTMENU,
+		APPSTATE_USBHOST
+	} AppState;
 	AppState appState = APPSTATE_FF_TERM;
 #endif
 	setup();
@@ -38,6 +79,9 @@ int main(void)
 	for(;;) {
 #ifdef USE_UHS20
 		Usb.Task(&USB_OTG_Core_dev);
+#else
+		/* Host Task handler */
+		USBH_Process(&USB_OTG_Core_dev , &USB_Host);
 #endif
 
 #if 0	// @huihuiyao, un-mask if flash led.
