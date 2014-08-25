@@ -26,10 +26,10 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_core.h"
-#include "usb_hcd.h"
-#include "usb_conf.h"
-#include "usb_bsp.h"
+#include "../inc/usb_core.h"
+#include "../inc/usb_hcd.h"
+#include "../inc/usb_conf.h"
+#include "../inc/usb_bsp.h"
 
 
 /** @addtogroup USB_OTG_DRIVER

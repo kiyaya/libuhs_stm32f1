@@ -5,17 +5,10 @@
  *      Author: kiya
  */
 
-#include "bsp.h"
+#include <bsp/bsp.h>
 #include "ff_test_term.h"
 
-#ifdef USE_UHS20
-#include "Usb.h"
-#include "usbhub.h"
-
-USB_OTG_CORE_HANDLE USB_OTG_Core_dev;
-USB Usb(&USB_OTG_Core_dev);
-USBHub Hub(&Usb);
-#else
+#ifndef USE_UHS20
 #include "usb_bsp.h"
 #include "usbh_core.h"
 #include "usbh_usr.h"
@@ -40,7 +33,10 @@ __ALIGN_BEGIN USBH_HOST                     USB_Host __ALIGN_END ;
 /**
 * @}
 */
+#else
+//#include <library/usb/libuhs20.h>
 
+int uhs_init(void);
 #endif
 
 void setup(void) {
@@ -48,8 +44,8 @@ void setup(void) {
 	printf("\n\rWelcome to USB-Host-Dock project!\n\r");
 
 #ifdef USE_UHS20
-	if (Usb.Init() != -1)
-		printf("\nUsb is initialized.\n");
+	if (uhs_init() != -1)
+		xprintf("\nUsb is initialized.\n");
 #else
 	USBH_Init(&USB_OTG_Core_dev,
 #ifdef USE_USB_OTG_FS
@@ -78,7 +74,11 @@ int main(void)
 
 	for(;;) {
 #ifdef USE_UHS20
-		Usb.Task(&USB_OTG_Core_dev);
+
+		//libuhs_task();
+
+		delay_ms(20);	//delay(10);
+
 #else
 		/* Host Task handler */
 		USBH_Process(&USB_OTG_Core_dev , &USB_Host);
@@ -123,3 +123,24 @@ int main(void)
 	return 1;
 }
 
+int uhs_init(void)
+{
+	register_libuhs_callback();
+
+	/* --- Hub class --- */
+	libuhs_class_hub_init();
+
+	/* --- HID boot class --- */
+	/*
+	 * --- MSC class ---
+	 * Initialize generic storage. This must be done before USB starts.
+	 */
+	//libuhs_class_msc_init();
+
+	/* --- Printer class --- */
+	/* --- CDC FTDI class --- */
+
+	/* --- kernel init --- */
+	//return libuhs_kernel_init();
+
+}

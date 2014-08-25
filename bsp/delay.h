@@ -14,7 +14,7 @@
 /* --- Delay definition --- */
 
 uint32_t millis(void);
-__inline void delay_ms(uint32_t count);
+void delay_ms(uint32_t count);
 __inline void delay_us(uint32_t count);
 #define delay delay_ms
 

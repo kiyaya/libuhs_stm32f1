@@ -26,9 +26,9 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_core.h"
-#include "usb_defines.h"
-#include "usb_hcd_int.h"
+#include "../inc/usb_core.h"
+#include "../inc/usb_defines.h"
+#include "../inc/usb_hcd_int.h"
 
 #if defined   (__CC_ARM) /*!< ARM Compiler */
 #pragma O0
@@ -226,12 +226,14 @@ static uint32_t USB_OTG_USBH_handle_sof_ISR (USB_OTG_CORE_HANDLE *pdev)
   USB_OTG_GINTSTS_TypeDef      gintsts;
   gintsts.d32 = 0;
   
-  USBH_HCD_INT_fops->SOF(pdev);
+  //USBH_HCD_INT_fops->SOF(pdev);
   
   /* Clear interrupt */
   gintsts.b.sofintr = 1;
   USB_OTG_WRITE_REG32(&pdev->regs.GREGS->GINTSTS, gintsts.d32);
   
+  pdev->host.SofHits++;
+
   return 1;
 }
 
@@ -247,8 +249,9 @@ static uint32_t USB_OTG_USBH_handle_Disconnect_ISR (USB_OTG_CORE_HANDLE *pdev)
   
   gintsts.d32 = 0;
   
-  USBH_HCD_INT_fops->DevDisconnected(pdev);
-  
+  //USBH_HCD_INT_fops->DevDisconnected(pdev);
+  pdev->host.ConnSts = 0;
+
   /* Clear interrupt */
   gintsts.b.disconnect = 1;
   USB_OTG_WRITE_REG32(&pdev->regs.GREGS->GINTSTS, gintsts.d32);
@@ -387,7 +390,8 @@ static uint32_t USB_OTG_USBH_handle_port_ISR (USB_OTG_CORE_HANDLE *pdev)
   {
 
     hprt0_dup.b.prtconndet = 1;
-    USBH_HCD_INT_fops->DevConnected(pdev);
+    //USBH_HCD_INT_fops->DevConnected(pdev);
+	pdev->host.ConnSts = 1;
     retval |= 1;
   }
   
@@ -399,7 +403,8 @@ static uint32_t USB_OTG_USBH_handle_port_ISR (USB_OTG_CORE_HANDLE *pdev)
     if (hprt0.b.prtena == 1)
     {
       
-      USBH_HCD_INT_fops->DevConnected(pdev);
+      //USBH_HCD_INT_fops->DevConnected(pdev);
+      pdev->host.ConnSts = 1;
       
       if ((hprt0.b.prtspd == HPRT0_PRTSPD_LOW_SPEED) ||
           (hprt0.b.prtspd == HPRT0_PRTSPD_FULL_SPEED))
@@ -444,7 +449,9 @@ static uint32_t USB_OTG_USBH_handle_port_ISR (USB_OTG_CORE_HANDLE *pdev)
   }
   if (do_reset)
   {
-    USB_OTG_ResetPort(pdev);
+    //USB_OTG_ResetPort(pdev);
+	pdev->host.port_need_reset = 1;	// todo: need refactoring later.
+
   }
   /* Clear Port Interrupts */
   USB_OTG_WRITE_REG32(pdev->regs.HPRT0, hprt0_dup.d32);

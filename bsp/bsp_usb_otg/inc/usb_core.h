@@ -129,7 +129,11 @@ typedef struct USB_OTG_hc
   uint32_t      xfer_count;  
   uint8_t       toggle_in;
   uint8_t       toggle_out;
-  uint32_t       dma_addr;  
+  uint16_t 	 	nak_count;
+  uint32_t      dma_addr;
+  uint8_t 		isEvenTimesToggle;
+  uint16_t 		nak_limit;
+
 }
 USB_OTG_HC , *PUSB_OTG_HC;
 
@@ -281,6 +285,9 @@ typedef struct _HCD
   USB_OTG_HC               hc [USB_OTG_MAX_TX_FIFOS];
   uint16_t                 channel [USB_OTG_MAX_TX_FIFOS];
 //  USB_OTG_hPort_TypeDef    *port_cb;  
+	__IO uint32_t 		SofHits;
+	uint32_t			port_need_reset;
+
 }
 HCD_DEV , *USB_OTG_USBH_PDEV;
 

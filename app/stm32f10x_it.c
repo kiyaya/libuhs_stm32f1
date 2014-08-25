@@ -30,12 +30,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 
-#include "bsp.h"
+#include <bsp/bsp.h>
 #include "ff_test_term.h"
 #include "diskio.h"
-#include "usb_bsp.h"
-#include "usb_hcd_int.h"
-#include "usbh_core.h"
+#include <bsp/bsp_usb_otg/inc/usb_bsp.h>
+#include <bsp/bsp_usb_otg/inc/usb_hcd_int.h>
+#include <bsp/bsp_usb_otg/inc/usbh_core.h>
 
 extern __IO uint32_t TimingDelay;
 extern USB_OTG_CORE_HANDLE          USB_OTG_Core_dev;
@@ -221,20 +221,20 @@ void Default_Handler_c(unsigned int * hardfault_args) {
 /**
   * @}
   */ 
-/**
-  * @brief  EXTI1_IRQHandler
-  *         This function handles External line 1 interrupt request.
-  * @param  None
-  * @retval None
-  */
-void EXTI1_IRQHandler(void)
-{
-  if(EXTI_GetITStatus(EXTI_Line1) != RESET)
-  {
-      USB_Host.usr_cb->OverCurrentDetected();
-      EXTI_ClearITPendingBit(EXTI_Line1);
-  }
-}
+///**
+//  * @brief  EXTI1_IRQHandler
+//  *         This function handles External line 1 interrupt request.
+//  * @param  None
+//  * @retval None
+//  */
+//void EXTI1_IRQHandler(void)
+//{
+//  if(EXTI_GetITStatus(EXTI_Line1) != RESET)
+//  {
+//      USB_Host.usr_cb->OverCurrentDetected();
+//      EXTI_ClearITPendingBit(EXTI_Line1);
+//  }
+//}
 
 void TIM2_IRQHandler(void)
 {

@@ -1,6 +1,6 @@
 #include <stdarg.h>
 
-#include "bsp.h"
+#include <bsp/bsp.h>
 #include "term_io.h"
 
 int xatoi (char **str, long *res)

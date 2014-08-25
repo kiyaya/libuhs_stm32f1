@@ -26,7 +26,7 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "usbh_hcs.h"
+#include "../inc/usbh_hcs.h"
 
 /** @addtogroup USBH_LIB
   * @{

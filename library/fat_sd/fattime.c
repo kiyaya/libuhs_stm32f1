@@ -2,7 +2,7 @@
 
 #include "integer.h"
 #include "fattime.h"
-#include "rtc.h"
+#include <bsp/rtc.h>
 
 DWORD get_fattime (void)
 {

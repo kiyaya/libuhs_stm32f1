@@ -30,7 +30,7 @@
 #define __USBH_HCS_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "usbh_core.h"
+#include "../inc/usbh_core.h"
 
 /** @addtogroup USBH_LIB
   * @{

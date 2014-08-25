@@ -8,7 +8,7 @@
 #include "diskio.h"
 #include "ff.h"
 
-#include "bsp.h"
+#include <bsp/bsp.h>
 #include "ff_test_term.h"
 #include "term_io.h"
 

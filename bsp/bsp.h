@@ -11,6 +11,10 @@
  extern "C" {
 #endif
 
+#ifndef  USE_UHS20
+#define USE_UHS20
+#endif
+
  /* --- includes. --- */
 #include <stdbool.h>
 #include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */

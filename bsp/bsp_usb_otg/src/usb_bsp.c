@@ -26,8 +26,8 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_bsp.h"
-#include "usb_conf.h"
+#include "../inc/usb_bsp.h"
+#include "../inc/usb_conf.h"
 
 /** @addtogroup USBH_USER
 * @{
