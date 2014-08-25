@@ -2,7 +2,7 @@
  * uhs20.h
  *
  *  Created on: 2014Äê7ÔÂ25ÈÕ
- *      Author: Hz
+ *      Author: kiya
  */
 
 #ifndef UHS20_H_

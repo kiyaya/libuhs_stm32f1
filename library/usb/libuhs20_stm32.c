@@ -2,7 +2,7 @@
  * main_uhs.c
  *
  *  Created on: 2014Äê7ÔÂ29ÈÕ
- *      Author: Hz
+ *      Author: kiya
  */
 
 #include "libuhs20.h"
