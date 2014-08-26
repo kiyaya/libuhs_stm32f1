@@ -32,7 +32,7 @@
 
 #include <bsp/bsp.h>
 #include "ff_test_term.h"
-#include "diskio.h"
+
 #include <bsp/bsp_usb_otg/inc/usb_bsp.h>
 #include <bsp/bsp_usb_otg/inc/usb_hcd_int.h>
 #include <bsp/bsp_usb_otg/inc/usbh_core.h>
@@ -238,7 +238,8 @@ void Default_Handler_c(unsigned int * hardfault_args) {
 
 void TIM2_IRQHandler(void)
 {
-  USB_OTG_BSP_TimerIRQ();
+	USB_OTG_BSP_TimerIRQ();
+	TIM2_IRQHandler_term_cb();
 }
 
 /**

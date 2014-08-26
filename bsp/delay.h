@@ -15,7 +15,7 @@
 
 uint32_t millis(void);
 void delay_ms(uint32_t count);
-__inline void delay_us(uint32_t count);
+void delay_us(uint32_t count);
 #define delay delay_ms
 
 //void delay(__IO uint32_t nCount);

@@ -4,9 +4,9 @@
 /*----------------------------------------------------------------------*/
 
 #include <string.h> /* memset et al*/
-#include "integer.h"
-#include "diskio.h"
-#include "ff.h"
+#include <library/fat_sd/integer.h>
+#include <library/fat_sd/diskio.h>
+#include <library/fat_sd/ff.h>
 
 #include <bsp/bsp.h>
 #include "ff_test_term.h"

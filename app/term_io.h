@@ -4,7 +4,7 @@
  extern "C" {
 #endif
 
-#include "integer.h"
+#include <library/fat_sd/integer.h>
 #include <stm32f10x.h>
 
 #define xgetc() (char)comm_getc()		//(char)GetKey()
@@ -17,7 +17,7 @@ void xitoa (long, int, int);
 void xprintf (const char*, ...) __attribute__ ((format (__printf__, 1, 2)));
 void put_dump (const BYTE*, DWORD ofs, int cnt);
 void get_line (char*, int len);
-//int get_line_r (char*, int len, int *idx);
+int get_line_r (char*, int len, int *idx);
 
 #ifdef __cplusplus
  }

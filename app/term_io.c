@@ -211,7 +211,6 @@ void get_line (char *buff, int len)
 	xputc('\n');
 }
 
-#if 0
 // function added by mthomas:
 int get_line_r (char *buff, int len, int* idx)
 {
@@ -240,4 +239,4 @@ int get_line_r (char *buff, int len, int* idx)
 
 	return retval;
 }
-#endif
+

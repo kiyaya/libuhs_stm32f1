@@ -30,9 +30,6 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-/* Highest address of the user mode stack */
-_estack = 0x20010000;    /* end of 64K RAM */
-
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0x4000;      /* required amount of heap  */
 _Min_Stack_Size = 0x4000; /* required amount of stack */
@@ -40,10 +37,17 @@ _Min_Stack_Size = 0x4000; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-  FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 256K
+  FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 128K
+  EEMUL (RWX)     : ORIGIN = 0x08000000+128k-2k, LENGTH = 2k
   RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 64K
   MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
 }
+
+/* higher address of the user mode stack */
+_estack = ORIGIN(RAM)+LENGTH(RAM);
+
+/* start of the two 1kByte pages used by EEprom emulation at end of flash */
+_seemul = ORIGIN(EEMUL);
 
 /* Define output sections */
 SECTIONS

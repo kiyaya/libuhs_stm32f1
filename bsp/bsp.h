@@ -11,18 +11,17 @@
  extern "C" {
 #endif
 
-#ifndef  USE_UHS20
-#define USE_UHS20
-#endif
-
  /* --- includes. --- */
 #include <stdbool.h>
+#include <stddef.h>
+
 #include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
 #include "comm.h"
 #include "delay.h"
 #include "gpio.h"
 #include "rtc.h"
 #include "swo_printf.h"
+#include "dcc_stdio.h"
 
  /* External function prototypes (defined in syscalls.c) */
 extern int printf(const char *fmt, ...);
