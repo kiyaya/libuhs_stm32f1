@@ -26,8 +26,8 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "../inc/usb_core.h"
-#include "../inc/usb_bsp.h"
+#include "usb_core.h"
+#include "usb_bsp.h"
 
 
 /** @addtogroup USB_OTG_DRIVER

@@ -26,7 +26,7 @@
   */ 
 /* Includes ------------------------------------------------------------------*/
 
-#include "../inc/usbh_ioreq.h"
+#include "usbh_ioreq.h"
 
 /** @addtogroup USBH_LIB
   * @{

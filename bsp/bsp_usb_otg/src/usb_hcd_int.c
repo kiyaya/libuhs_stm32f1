@@ -26,9 +26,9 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "../inc/usb_core.h"
-#include "../inc/usb_defines.h"
-#include "../inc/usb_hcd_int.h"
+#include "usb_core.h"
+#include "usb_defines.h"
+#include "usb_hcd_int.h"
 
 #if defined   (__CC_ARM) /*!< ARM Compiler */
 #pragma O0
